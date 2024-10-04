@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry([ credentialsId: 'docker-hub-creds', url: 'https://index.docker.io/v1/' ])  {
-                        sh 'docker push ahmedgamal01/repo/gemii-hoassamfathalla-nazmy-image'
+                        sh 'docker push ahmedgamal01/repo'
                     }
                 }
             }
