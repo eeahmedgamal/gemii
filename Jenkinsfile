@@ -1,19 +1,20 @@
-pipeline 
+pipeline {
     agent any
     stages {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t ahmedgamal01/repo/Gemii&HoassamFathalla&Nazmy-Image'
+                    sh 'docker build -t ahmedgamal01/repo/Gemii&HoassamFathalla&Nazmy-Image .'
                 }
             }
         }
         stage('Push Image to Docker Hub') {
             steps {
                 script {
-                   
+                    withDockerRegistry([ credentialsId: 'docker-hub-creds', url: '' ]) {
                         sh 'docker push ahmedgamal01/repo/Gemii&HoassamFathalla&Nazmy-Image'
                     }
+                }
             }
         }
         stage('Pull Image on Another Agent') {
@@ -48,4 +49,57 @@ pipeline
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
