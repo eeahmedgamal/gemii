@@ -11,7 +11,7 @@ pipeline {
         stage('Push Image to Docker Hub') {
             steps {
                 script {
-                    withDockerRegistry([ credentialsId: 'docker-hub-creds', url: 'https://hub.docker.com/repository/docker/ahmedgamal01/repo' ]) {
+                    withDockerRegistry([ credentialsId: 'docker-hub-creds', url: 'https://index.docker.io/v1/' ])  {
                         sh 'docker push ahmedgamal01/repo/gemii-hoassamfathalla-nazmy-image'
                     }
                 }
