@@ -4,7 +4,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t ahmedgamal01/repo/Gemii&HoassamFathalla&Nazmy-Image .'
+                    sh 'docker build -t ahmedgamal01/repo/Gemii-HoassamFathalla-Nazmy-Image .'
                 }
             }
         }
@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry([ credentialsId: 'docker-hub-creds', url: '' ]) {
-                        sh 'docker push ahmedgamal01/repo/Gemii&HoassamFathalla&Nazmy-Image'
+                        sh 'docker push ahmedgamal01/repo/Gemii-HoassamFathalla-Nazmy-Image'
                     }
                 }
             }
@@ -21,14 +21,14 @@ pipeline {
             agent { label 'remote-agent' } // Run on a different node/agent
             steps {
                 script {
-                    sh 'docker pull ahmedgamal01/repo/Gemii&HoassamFathalla&Nazmy-Image'
+                    sh 'docker pull ahmedgamal01/repo/Gemii-HoassamFathalla-Nazmy-Image'
                 }
             }
         }
         stage('Run the Image') {
             steps {
                 script {
-                    sh 'docker run -d -p 8080:8080 ahmedgamal01/repo/Gemii&HoassamFathalla&Nazmy-Image'
+                    sh 'docker run -d -p 8080:8080 ahmedgamal01/repo/Gemii-HoassamFathalla-Nazmy-Image'
                 }
             }
         }
