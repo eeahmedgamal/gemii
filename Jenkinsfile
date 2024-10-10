@@ -18,14 +18,15 @@ pipeline {
             }
         }
         stage('Pull Image on Another Agent') {
-            agent { label 'remote-agent' } // Run on a different node/agent
+            agent { label 'gemii-2' } // Run on a different node/agent
             steps {
                 script {
                     sh 'docker pull ahmedgamal01/repo/gemii-hoassamfathalla-nazmy-image'
                 }
             }
         }
-        stage('Run the Image') {
+        stage('Run the Image') { 
+            agent { label 'gemii-2' }
             steps {
                 script {
                     sh 'docker run -d -p 8080:8080 ahmedgamal01/repo/gemii-hoassamfathalla-nazmy-image'
