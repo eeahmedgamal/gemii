@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker image on port 8080
-                    sh 'docker run -d -p 8080:8080 ahmedgamal01/gemii-hoassamfathalla-nazmy-image'
+                    sh 'docker run -d -p 9090:9090 ahmedgamal01/gemii-hoassamfathalla-nazmy-image'
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     // Check if the website is accessible
-                    sh 'curl http://localhost:8080'
+                    sh 'curl http://localhost:9090'
                 }
             }
         }
