@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    sh 'docker build -t ahmedgamal01/gemii-hoassamfathalla-nazmy-image .'
+                    sh 'docker build -t ahmedgamal01/gemii .'
                 }
             }
         }
@@ -21,31 +21,31 @@ pipeline {
                 script {
                     withDockerRegistry([ credentialsId: 'docker-hub-creds', url: 'https://index.docker.io/v1/' ]) {
                         // Push the built image to Docker Hub
-                        sh 'docker push ahmedgamal01/gemii-hoassamfathalla-nazmy-image'
+                        sh 'docker push ahmedgamal01/gemii'
                     }
                 }
             }
         }
         stage('Pull Image on Another Agent') {
-            agent { label 'gemii-2' } // Run on a different node/agent
+            agent { label 'jenkins' } // Run on a different node/agent
             steps {
                 script {
                     // Pull the image from Docker Hub
-                    sh 'docker pull ahmedgamal01/gemii-hoassamfathalla-nazmy-image'
+                    sh 'docker pull ahmedgamal01/gemii'
                 }
             }
         }
         stage('Run the Image') {
-            agent { label 'gemii-2' }
+            agent { label 'jenkins' }
             steps {
                 script {
-                    // Run the Docker image on port 8080
-                    sh 'docker run -d -p 9090:9090 ahmedgamal01/gemii-hoassamfathalla-nazmy-image'
+                    // Run the Docker image on port 9090
+                    sh 'docker run -d -p 9090:9090 ahmedgamal01/gemii'
                 }
             }
         }
         stage('Check Connectivity') {
-            agent { label 'gemii-2' } // Ensure curl runs on the same agent where the container is running
+            agent { label 'jenkins' } // Ensure curl runs on the same agent where the container is running
             steps {
                 script {
                     // Check if the website is accessible
