@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     // Check if the website is accessible
-                    sh 'curl http://localhost:9090'
+                    sh 'curl http://192.168.1.3:9090'
                 }
             }
         }
