@@ -1,12 +1,5 @@
 pipeline {
     agent any
-    stage('Check User') {
-            steps {
-                script {
-                    sh 'whoami'  // This will print the user running the pipeline
-                }
-            }
-        }
     stages {
         stage('Build Docker Image') {
             steps {
