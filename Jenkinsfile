@@ -12,7 +12,7 @@ pipeline {
         stage('Push Image to Docker Hub') {
             steps {
                 script {
-                    withDockerRegistry([ credentialsId: 'docker-hub-creds', url: 'https://index.docker.io/v1/' ]) {
+                    withDockerRegistry([credentialsId: 'docker-hub-creds', url: 'https://index.docker.io/v1/']) {
                         // Push the built image to Docker Hub
                         sh 'docker push ahmedgamal01/gemii'
                     }
@@ -23,8 +23,10 @@ pipeline {
             agent { label 'jenkins' } // Run on a different node/agent
             steps {
                 script {
-                    // Pull the image from Docker Hub
-                    sh 'docker pull ahmedgamal01/gemii'
+                    withDockerRegistry([credentialsId: 'docker-hub-creds', url: 'https://index.docker.io/v1/']) {
+                        // Pull the image from Docker Hub
+                        sh 'docker pull ahmedgamal01/gemii'
+                    }
                 }
             }
         }
@@ -32,8 +34,8 @@ pipeline {
             agent { label 'jenkins' }
             steps {
                 script {
-                    // Run the Docker image on port 9090
-                    sh 'docker run -d -p 9090:9090 ahmedgamal01/gemii'
+                    // Run the Docker image on port 8080
+                    sh 'docker run -d -p 8080:8080 ahmedgamal01/gemii'
                 }
             }
         }
@@ -42,7 +44,7 @@ pipeline {
             steps {
                 script {
                     // Check if the website is accessible
-                    sh 'curl http://192.168.1.3:9090'
+                    sh 'curl http://192.168.1.3:8080'
                 }
             }
         }
