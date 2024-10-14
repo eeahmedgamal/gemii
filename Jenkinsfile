@@ -20,7 +20,7 @@ pipeline {
             }
         }
         stage('Pull Image on Another Agent') {
-            agent { label 'jenkins' } // Run on a different node/agent
+            agent { label 'jenkins-agent' } // Run on a different node/agent
             steps {
                 script {
                     withDockerRegistry([credentialsId: 'docker-hub-creds', url: 'https://index.docker.io/v1/']) {
@@ -31,7 +31,7 @@ pipeline {
             }
         }
         stage('Run the Image') {
-            agent { label 'jenkins' }
+            agent { label 'jenkins-agent' }
             steps {
                 script {
                     // Run the Docker image on port 8080
@@ -40,7 +40,7 @@ pipeline {
             }
         }
         stage('Check Connectivity') {
-            agent { label 'jenkins' } // Ensure curl runs on the same agent where the container is running
+            agent { label 'jenkins-agent' } // Ensure curl runs on the same agent where the container is running
             steps {
                 script {
                     // Check if the website is accessible
